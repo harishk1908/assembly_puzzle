@@ -1,0 +1,42 @@
+#pragma once
+#include <boost/functional/hash.hpp>
+
+#ifndef POINT
+#define POINT
+
+class Point {
+public:
+	int x = 0;
+	int y = 0;
+
+	Point() {
+		x = 0;
+		y = 0;
+	}
+
+	Point(int _x, int _y) {
+		x = _x;
+		y = _y;
+	}
+
+	bool operator==(const Point& p) const {
+		return x == p.x && y == p.y;
+	}
+
+};
+
+struct PointHasher {
+	std::size_t operator()(const Point& p) const {
+
+		using boost::hash_value;
+		using boost::hash_combine;
+
+		std::size_t seed = 0;
+		boost::hash_combine(seed, hash_value(p.x));
+		boost::hash_combine(seed, hash_value(p.y));
+
+		return seed;
+	}
+};
+#endif
+
