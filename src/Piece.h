@@ -56,5 +56,16 @@ public:
 		}
 		return false;
 	}
+
+	Point getBottomRightCorner(int rotationIndex) {
+		Point res(0,0);
+		for (Point p : pointsUnderRotations[rotationIndex]) {
+			if (p.x > res.x)
+				res.x = p.x;
+			if (p.y > res.y)
+				res.y = p.y;
+		}
+		return res;
+	}
 };
 #endif
