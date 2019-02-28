@@ -2,6 +2,7 @@
 #include <string>
 #include <utility>
 #include <algorithm>
+#include <set>
 #include <unordered_set>
 #include <vector>
 #include "Point.h"
@@ -10,7 +11,7 @@ using namespace std;
 #ifndef PIECE
 #define PIECE
 
-typedef unordered_set<Point, PointHasher> pointSet;
+typedef vector<Point> pointSet;
 class Piece {
 private:
 
@@ -41,23 +42,23 @@ public:
 			p.x = p.y;
 			p.y = maxX - tempX;
 			//cout << p.x << " " << p.y << endl;
-			res.insert(p);
+			res.push_back(p);
 		}
 		return res;
 
 	}
-
-	static bool isOverlap(Piece a, int rotationIndexA, Point positionA, Piece b, int rotationIndexB, Point positionB) {
+	/*
+	inline static bool isOverlap(Piece& a, int rotationIndexA, Point& positionA, Piece& b, int rotationIndexB, Point& positionB) {
 		for (Point p : a.pointsUnderRotations[rotationIndexA]) {
 			p.x += positionA.x - positionB.x;
 			p.y += positionA.y - positionB.y;
-			if (b.pointsUnderRotations[rotationIndexB].count(p))
+			if (b.pointsUnderRotations[rotationIndexB].find(p) != b.pointsUnderRotations[rotationIndexB].end())
 				return true;
 		}
 		return false;
 	}
-
-	Point getBottomRightCorner(int rotationIndex) {
+	*/
+	inline Point getBottomRightCorner(int rotationIndex) {
 		Point res(0,0);
 		for (Point p : pointsUnderRotations[rotationIndex]) {
 			if (p.x > res.x)

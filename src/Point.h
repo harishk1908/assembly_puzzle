@@ -23,6 +23,19 @@ public:
 		return x == p.x && y == p.y;
 	}
 
+	bool operator<(const Point& p) const {
+		return x < p.x || y < p.y;
+	}
+
+};
+
+struct PointComparator {
+	bool operator() (const Point& p1, const Point& p2) const {
+		if (p1.x < p2.x) return true;
+		if (p1.x > p2.x) return false;
+		if (p1.y < p2.y) return true;
+		return false;
+	}
 };
 
 struct PointHasher {
